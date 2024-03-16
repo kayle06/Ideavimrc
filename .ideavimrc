@@ -1,0 +1,356 @@
+" .ideavimrc is a configuration file for IdeaVim plugin. It uses
+"   the same commands as the original .vimrc configuration.
+" You can find a list of commands here: https://jb.gg/h38q75
+" Find more examples here: https://jb.gg/share-ideavimrc
+
+
+"" -- Suggested options --
+" Show a few lines of context around the cursor. Note that this makes the
+" text scroll if you mouse-click near the start or end of the window.
+" set scrolloff=5
+
+" Do incremental searching.
+" set incsearch
+
+" Don't use Ex mode, use Q for formatting.
+" map Q gq
+
+" --- Enable IdeaVim plugins https://jb.gg/ideavim-plugins
+
+" Highlight copied text
+Plug 'machakann/vim-highlightedyank'
+" Commentary plugin
+Plug 'tpope/vim-commentary'
+
+
+"" -- Map IDE actions to IdeaVim -- https://jb.gg/abva4t
+"" Map \r to the Reformat Code action
+"map \r <Action>(ReformatCode)
+
+"" Map <leader>d to start debug
+"map <leader>d <Action>(Debug)
+
+"" Map \b to toggle the breakpoint on the current line
+"map \b <Action>(ToggleLineBreakpoint)
+
+
+
+Plug 'tpope/vim-surround'
+Plug 'preservim/nerdtree'
+
+-- https://github.com/LintaoAmons/CoolStuffes
+-- https://github.com/Leivzy/code_2023/tree/master/Share/ideavim
+
+
+"=======================================================================================================================
+" 🥐🥐🥐 -- Leader  -- 🥐🥐🥐
+"=======================================================================================================================
+
+"--将<leader>设置为 空格 键
+let mapleader = " "
+
+"=======================================================================================================================
+" ☃️☃️☃️ Basic Setting ☃️☃️☃️
+"=======================================================================================================================
+
+" -- 语法高亮
+syntax on
+set incsearch
+
+" -- 光标距离窗口顶部或尾部?行时进行滚动
+set scrolloff=10
+
+" -- 在搜索时忽略大小写
+set ignorecase
+
+" -- 在搜索时将匹配的文本高亮显示
+set hlsearch
+
+" -- 显示当前行的绝对行号与其他行的相对行号
+set number relativenumber
+
+" -- 返回 normal 模式时切换回英文输入法（idea 需要安装 IdeaVimExtension plugin）
+set keep-english-in-normal
+
+" -- 使复制操作默认使用系统剪贴板
+set clipboard=unnamedplus
+
+"=======================================================================================================================
+" ⛩⛩⛩ Key Mapping ⛩⛩⛩
+"=======================================================================================================================
+
+" -- 在 Insert 模式下将 jj 映射为 ESC
+imap jk <Esc>
+
+" -- 将 Q 映射为格式化文本
+map Q gq
+
+" -- 普通模式下使用回车向上或向下新增段落
+nmap <CR> o<Esc>
+nmap <S-Enter> O<Esc>
+
+" -- 向上/下翻半页
+nmap <D-u> <C-u>
+nmap <D-d> <C-d>
+
+"=======================================================================================================================
+" 🧬🧬🧬 -- No Leader Keymaps -- 🧬🧬🧬
+"=======================================================================================================================
+
+" -- 切换标签页
+
+nmap K <action>(NextTab)
+nmap J <action>(PreviousTab)
+
+
+
+
+" -- 在普通和插入模式下，向下交换行/向上交换行
+nnoremap <D-j> :m +1<CR>
+nnoremap <D-k> :m -2<CR>
+inoremap <D-j> <Esc> :m +1<CR>gi
+inoremap <D-k> <Esc> :m -2<CR>gi
+xnoremap <D-j> :m '>+1<cr>gv=gv
+xnoremap <D-k> :m '<-2<cr>gv=gv
+
+" -- 使用命令删除行时不进行复制
+nnoremap dd "_dd
+"nnoremap d "_d
+nnoremap x "_x
+nnoremap s "_s
+nnoremap ciw "_ciw
+nnoremap diw "_diw
+nnoremap daw "_daw
+nnoremap d$ "_d$
+nnoremap d0 "_d0
+
+" -- 将ctrl+t映射为打开terminal
+nmap <C-t> <action>(ActivateTerminalToolWindow)
+
+" -- 跳转到下一个错误或警告
+let g:WhichKeyDesc_GotoNextError = "gn 跳转到下一个错误或警告"
+nmap gn <action>(GotoNextError)
+" -- 跳转到上一个错误或警告
+let g:WhichKeyDesc_GotoPreviousError = "gp 跳转到上一个错误或警告"
+nmap gp <action>(GotoPreviousError)
+" -- 跳转到当前接口或抽象类的实现处
+let g:WhichKeyDesc_GotoImplementation = "gi 跳转到当前接口或抽象类的实现处"
+nmap gi <action>(GotoImplementation)
+" -- 跳转到当前接口或抽象类的声明处
+let g:WhichKeyDesc_GotoDeclaration = "ge 跳转到当前接口或抽象类的声明处"
+nmap ge <action>(GotoDeclaration)
+" -- 跳转到当前实现类的接口类声明处
+let f:WhichKeyDesc_GotoSuperMethod = "gs 跳转到当前实现类的接口类声明处"
+nmap gs <action>(GotoSuperMethod)
+
+" -- Jrebel 调试
+let g:WhichKeyDesc_RebelDebugAction2022UI = "rd JRebel调试"
+nmap rd <action>(RebelDebugAction2022UI)
+
+" -- build 当前模块
+let g:WhichKeyDesc_MakeModule = "rm MakeModule build 当前模块"
+nmap rm <action>(MakeModule)
+
+
+
+" -- 显示光标所在位置的行号和列号
+"set ruler
+"set wrap                      "自动折行
+"set shiftwidth=4
+"set tabstop=4
+"set softtabstop=4
+"set expandtab                  "将tab替换为相应数量空格
+"set smartindent
+"set backspace=2
+"set co=5
+"设置取消备份 禁止临时文件生成
+"set nobackup
+"set noswapfile
+" 为IdeaVim插件增加自动切换为英文输入法的功能,
+"设置匹配模式 类似当输入一个左括号时会匹配相应的那个右括号
+"set showmatch
+"set clipboard^=unnamed,unnamedplus
+"set laststatus=2   "命令行为两行
+"set fenc=utf-8     "文件编码
+"set mouse=a        "启用鼠标
+"set ignorecase     "忽略大小写
+"set cursorline     "突出显示当前行
+"set cursorcolumn   "突出显示当前列
+"set fdm=marker
+
+
+
+"=======================================================================================================================
+" 🧬🧬🧬 -- Leader Keymaps -- 🧬🧬🧬
+"=======================================================================================================================
+set which-key
+set notimeout
+
+" ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ one letter ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
+" -- 打开左侧文件树
+let g:WhichKeyDesc_ToggleExplorerOrExtract = "<leader>e 打开左侧文件树"
+nmap <leader>e <action>(ActivateProjectToolWindow)
+
+" -- 隐藏/显示代码作者
+let g:WhichKeyDesc_Annotate = "<leader>a 隐藏/显示代码作者"
+nmap <leader>a <action>(Annotate)
+
+let g:WhichKeyQuickJavaDoc = "<leader>j 快速查看JavaDoc"
+nmap <leader>J <action>(QuickJavaDoc)
+
+" ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ c ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
+let g:WhichKeyDesc_CodeAndClose = "<leader>c 代码和关闭"
+" -- 关闭所有标签页
+let g:WhichKeyDesc_CodeAndClose_CloseAllEditors = "<leader>ca 关闭所有标签页"
+nmap <leader>ca <action>(CloseAllEditors)
+
+" -- 关闭当前标签页
+let g:WhichKeyDesc_CodeAndClose_CloseEditor = "<leader>ce 关闭当前标签页"
+nmap <leader>ce <action>(CloseEditor)
+
+" -- 代码自动补全
+let g:WhichKeyDesc_CodeAndClose_CodeCompletion = "<leader>cc 代码自动补全"
+nmap <leader>cc <action>(CodeCompletion)
+
+" -- 关闭其他标签页
+let g:WhichKeyDesc_CodeAndClose_CloseAllEditorsButActive = "<leader>co 关闭其他标签页"
+nmap <leader>co <action>(CloseAllEditorsButActive)
+
+
+
+" ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ d ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
+let g:WhichKeyDesc_DebugOrDelete = "<leader>d 断点或删除"
+" -- 打断点/解除断点
+let g:WhichKeyDesc_DebugOrDelete_BreakPoint = "<leader>dp 打断点/解除断点"
+nmap <leader>dp <Action>(ToggleLineBreakpoint)
+
+" -- Debug
+let g:WhichKeyDesc_Debug = "<leader>dd Debug"
+nmap <leader>dd <action>(Debug)
+
+
+" ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ g ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
+let g:WhichKeyDesc_GitOrGenerate = "<leader>g git或generate"
+" -- 生成构造器
+let g:WhichKeyDesc_GitOrGenerate_GenerateConstructor = "<leader>gc 生成构造器"
+nmap <leader>gc :action GenerateConstructor<CR>
+
+" -- 生成getter
+let g:WhichKeyDesc_GitOrGenerate_GenerateGetter = "<leader>gg 生成getter"
+nmap <leader>gg :action GenerateGetter<CR>
+
+" -- 生成setter
+let g:WhichKeyDesc_GitOrGenerate_GenerateSetter = "<leader>gs 生成setter"
+nmap <leader>gs :action GenerateSetter<CR>
+
+" -- 生成setter和getter
+let g:WhichKeyDesc_GitOrGenerate_GenerateGetterAndSetter = "<leader>ga 生成setter和getter"
+nmap <leader>ga <action>(GenerateGetterAndSetter)
+
+" -- 生成 equals() 和 hashcode() 的重写方法
+let g:WhichKeyDesc_GitOrGenerate_GenerateEquals = "<leader>ge 生成equals和hashcode的重写"
+nmap <leader>ge <action>(GenerateEquals)
+
+" -- 生成toString
+let g:WhichKeyDesc_GitOrGenerate_GenerateToString = "<leader>ge 生成toString"
+nmap <leader>gt <action>(Actions.ActionsPlugin.GenerateToString)et g:WhichKeyDesc_Goto = "<leader>g 跳转"
+
+
+
+" ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ h ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
+" 跳转到左边的分割窗口
+let g:WhichKeyDesc_Show_MoveToLeft = "<leader>h 向左跳转"
+nmap <leader>h <c-w>h
+
+
+" ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ j ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
+"跳转到下边的分割窗口
+let g:WhichKeyDesc_Show_MoveToDown = "<leader>j 向下跳转"
+nmap <leader>j <c-w>j
+
+
+" ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ k ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐
+"跳转到上边的分割窗口
+let g:WhichKeyDesc_Show_MoveToUp = "<leader>k 向上跳转"
+nmap <leader>k <c-w>k️
+
+
+" ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ l ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
+"跳转到右边的窗口
+let g:WhichKeyDesc_Show_MoveToRight = "<leader>l 向右跳转"
+nmap <leader>l <c-w>l
+
+
+" ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ m ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
+let g:WhichKeyDesc_Windows = "<leader>w 窗口"
+let g:WhichKeyDesc_Windows_Hide = "<leader>ww 关闭提示窗口->a"
+let g:WhichKeyDesc_Windows_Move = "<leader>wm 移动窗口"
+
+"向右拆分标签页
+let g:WhichKeyDesc_Windows_Move_MoveTabRight = "<leader>wml 向右拆分标签页"
+nmap <leader>wml <action>(MoveTabRight)
+"向下拆分标签页
+let g:WhichKeyDesc_Windows_Move_MoveTabDown = "<leader>wmd 向下拆分标签页"
+nmap <leader>wmd <action>(MoveTabDown)
+"在另一边打开（前提是有另一边的分割窗口）
+let g:WhichKeyDesc_Windows_Move_MoveEditorToOppositeTabGroup = "<leader>wmo 在另一边打开"
+nmap <leader>wmo <action>(MoveEditorToOppositeTabGroup)
+"向右复制标签页
+let g:WhichKeyDesc_Windows_Move_SplitVertically = "<leader>wmc 向右复制标签页"
+nmap <leader>wmc <action>(SplitVertically)
+
+"取消所有分割窗口
+let g:WhichKeyDesc_Windows_UnsplitAll = "<leader>wa 取消所有分割窗口"
+nmap <leader>wa <action>(UnsplitAll)
+"关闭当前窗口或分割窗格
+let g:WhichKeyDesc_Windows_closeActiveWindow = "<leader>wc 关闭当前分割窗口"
+nmap <leader>wc <c-w>c
+"取消拆分当前分割窗口
+let g:WhichKeyDesc_Windows_Unsplit = "<leader>wu 取消拆分当前分割窗口"
+nmap <leader>wu <action>(Unsplit)
+
+"关闭提示窗口
+let g:WhichKeyDesc_Windows_Hide_HideActiveWindow = "<leader>wwa 关闭提示窗口"
+nmap <leader>wwa <action>(HideActiveWindow)
+
+
+" ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ n ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
+let g:WhichKeyDesc_NERDTreeOrNew = "<leader>n 目录树&新建"
+
+"取消搜索高亮显示(No Highlight)
+let g:WhichKeyDesc_NERDTreeOrNew_Highlight = "<leader>nh 取消搜索高亮"
+nmap <leader>nh :nohlsearch<CR>
+"在当前目录新建文件夹
+let g:WhichKeyDesc_NERDTreeOrNew_NewDir = "<leader>nd 新建文件夹"
+nmap <leader>nd <action>(NewDir)
+"在当前目录新建类
+let g:WhichKeyDesc_NERDTreeOrNew_NewClass = "<leader>nc 新建.Class"
+nmap <leader>nc <action>(NewClass)
+
+
+
+" ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ p ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
+"从剪切板粘贴到下面行
+let g:WhichKeyDesc_PasteClipboardDown = "<leader>p 从剪切板粘贴到下面行"
+nmap <leader>p :pu<CR>
+"从剪切板粘贴到上面行
+let g:WhichKeyDesc_PasteClipboardUp = "<leader>P 从剪切板粘贴到上面行"
+nmap <leader>P "+P
+"在可视模式中：从剪切板粘贴到下面行
+let g:WhichKeyDesc_PasteClipboardDown = "<leader>p 从剪切板粘贴到下面行"
+vmap <leader>p :pu<CR>
+"在可视模式中：从剪切板粘贴到上面行
+let g:WhichKeyDesc_PasteClipboardUp = "<leader>P 从剪切板粘贴到上面行"
+vmap <leader>P "+P
+
+
+
+" ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ z ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
+let g:WhichKeyDesc_Zip = "<leader>z 折叠"
+
+"展开所有代码折叠区域(Ctrl + Shift + 加号键)
+let g:WhichKeyDesc_Zip_unZipAll = "<leader>zo 展开所有折叠"
+nmap <leader>zo <action>(ExpandAllRegions)
+"折叠所有代码折叠区域(Ctrl + Shift + 减号键)
+let g:WhichKeyDesc_Zip_ZipAll = "<leader>zc 折叠所有代码"
+nmap <leader>zc <action>(CollapseAllRegions)
